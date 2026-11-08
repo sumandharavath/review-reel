@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { prisma } from './lib/prisma';
+import { authRouter } from './modules/auth/auth.routes';
 
 export const app = express();
 
@@ -11,10 +12,12 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Basic Health Check Endpoint
+// API Routes
+app.use('/api/v1/auth', authRouter);
+
+// Health Check Endpoint
 app.get('/health', async (_req: Request, res: Response) => {
   try {
-    // Verify database connectivity
     await prisma.$queryRaw`SELECT 1`;
 
     res.status(200).json({
@@ -38,4 +41,3 @@ app.get('/health', async (_req: Request, res: Response) => {
 app.use((_req: Request, res: Response) => {
   res.status(404).json({ error: 'Route not found' });
 });
-
