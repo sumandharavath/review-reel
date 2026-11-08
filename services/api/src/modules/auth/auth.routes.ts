@@ -10,3 +10,4 @@ router.get('/me', authenticateToken, (req, res) => authController.getMe(req, res
 router.post('/logout', (req, res) => authController.logout(req, res));
 
 export const authRouter = router;
+

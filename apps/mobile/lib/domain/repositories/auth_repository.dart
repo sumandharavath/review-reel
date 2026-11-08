@@ -19,3 +19,4 @@ abstract class AuthRepository {
 
   Future<bool> hasValidSession();
 }
+

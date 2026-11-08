@@ -1,4 +1,4 @@
-package com.reviewreel.review_reel
+package com.reviewreel.app
 
 import io.flutter.embedding.android.FlutterActivity
 

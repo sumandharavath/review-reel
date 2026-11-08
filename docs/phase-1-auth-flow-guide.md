@@ -153,3 +153,4 @@ flutter run
    - Go to the **Profile** tab (4th tab).
    - Click **"Sign Out of Session"** -> confirm in the dialog.
    - The token is purged from secure storage and the app immediately routes back to **Login Screen**.
+

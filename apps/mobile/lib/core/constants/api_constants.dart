@@ -30,3 +30,4 @@ class ApiConstants {
   static const String me = '/auth/me';
   static const String logout = '/auth/logout';
 }
+

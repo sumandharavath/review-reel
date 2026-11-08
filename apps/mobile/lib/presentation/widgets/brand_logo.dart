@@ -76,3 +76,4 @@ class BrandLogo extends StatelessWidget {
     );
   }
 }
+

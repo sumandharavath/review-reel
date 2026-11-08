@@ -13,3 +13,4 @@ class LocalStorageService {
     await prefs.setBool(_keySeenOnboarding, seen);
   }
 }
+

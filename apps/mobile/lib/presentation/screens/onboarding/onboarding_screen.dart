@@ -193,3 +193,4 @@ class OnboardingItem {
     required this.description,
   });
 }
+

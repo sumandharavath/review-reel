@@ -12,3 +12,4 @@ class AppRoutes {
   static const String bookings = '/bookings';
   static const String profile = '/profile';
 }
+
