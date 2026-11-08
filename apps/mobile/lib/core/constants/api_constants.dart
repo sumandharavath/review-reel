@@ -1,27 +1,33 @@
-import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show ValueNotifier;
 
 class ApiConstants {
   ApiConstants._();
 
   static const String _envBaseUrl = String.fromEnvironment('API_BASE_URL');
+  static final ValueNotifier<String> baseUrlNotifier = ValueNotifier<String>(_resolveInitialUrl());
 
-  static String get baseUrl {
+  static String _resolveInitialUrl() {
     if (_envBaseUrl.isNotEmpty) {
       return _envBaseUrl;
     }
-
-    if (kIsWeb) {
-      return 'http://localhost:5001/api/v1';
-    }
-
-    if (Platform.isAndroid) {
-      // 10.0.2.2 points to host machine from Android Emulator
-      return 'http://10.0.2.2:5001/api/v1';
-    }
-
-    // iOS Simulator, macOS Desktop, etc.
+    // Default to localhost:5001 which works for:
+    // 1. Android physical phones via 'adb reverse tcp:5001 tcp:5001'
+    // 2. iOS Simulator
+    // 3. Web & Desktop
     return 'http://localhost:5001/api/v1';
+  }
+
+  static String get baseUrl => baseUrlNotifier.value;
+
+  static void setBaseUrl(String newUrl) {
+    String cleanUrl = newUrl.trim();
+    if (cleanUrl.endsWith('/')) {
+      cleanUrl = cleanUrl.substring(0, cleanUrl.length - 1);
+    }
+    if (!cleanUrl.endsWith('/api/v1')) {
+      cleanUrl = '$cleanUrl/api/v1';
+    }
+    baseUrlNotifier.value = cleanUrl;
   }
 
   // Auth Endpoints
@@ -30,4 +36,3 @@ class ApiConstants {
   static const String me = '/auth/me';
   static const String logout = '/auth/logout';
 }
-
